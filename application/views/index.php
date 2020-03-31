@@ -90,8 +90,10 @@
     </div>
   </section>
 
-  <!-- About -->
-  <section class="page-section" id="news" data-aos="zoom-in" data-aos-duration="800">
+
+  <!-- News -->
+  <div class="" id="news"></div>
+  <section class="page-section" data-aos="zoom-in" data-aos-duration="800">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -182,7 +184,7 @@
 
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up-right" data-aos-duration="1000">
-          <a class="norm" href = "greenwing.php">
+          <a class="norm" href = "<?php echo base_url(); ?>greenwing">
           <div class="team-member">
             <img class="mx-auto rounded-circle" src="<?php echo base_url(); ?>assets/img/team/1.jpg" alt="">
             <h4>Green Wing</h4>
@@ -191,7 +193,7 @@
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1300">
-          <a class="norm" href = "servicewing.php">
+          <a class="norm" href = "<?php echo base_url(); ?>servicewing">
           <div class="team-member">
             <img class="mx-auto rounded-circle" src="<?php echo base_url(); ?>assets/img/team/2.png" alt="">
             <h4>Service Wing</h4>
@@ -200,7 +202,7 @@
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1600">
-          <a class="norm" href = "socialwing.php">
+          <a class="norm" href = "<?php echo base_url(); ?>socialwing">
           <div class="team-member">
             <img class="mn-auto rounded-circle" src="<?php echo base_url(); ?>assets/img/team/3.jpg" alt="">
             <h4>Social Wing</h4>
@@ -209,7 +211,7 @@
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up-left" data-aos-duration="1900">
-          <a class="norm" href ="techowing.php">
+          <a class="norm" href ="<?php echo base_url(); ?>techowing">
           <div class="team-member">
             <img class="mx-auto rounded-circle" src="<?php echo base_url(); ?>assets/img/team/4.jpg" alt="">
             <h4>Techo Wing</h4>
@@ -281,7 +283,14 @@
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="modal-body" id="body">
-                <!-- Project Details Go Here -->
+                <h2 class="text-uppercase" id="title"></h2>
+                <p class="item-intro text-muted" id="city"></p>
+                <img class="img-fluid d-block mx-auto" id="image" src="" alt="">
+                <p id="content"></p>
+                <ul class="list-inline">
+                  <li id="date"></li>
+                  <li id="location"></li>
+                </ul>
 
               </div>
             </div>
@@ -304,7 +313,12 @@
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="modal-body" id="body2">
-
+                <h2 class="text-uppercase" id="title1"></h2>
+                <img class="img-fluid d-block mx-auto" id="image1" src="" alt="">
+                <ul class="list-inline">
+                  <li id="date1"></li>
+                  <li id="location1"></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -315,31 +329,43 @@
 
   <script>
     function sho(slno) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
-          document.getElementById('body').innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("POST", "views/admin/api/showevents.php", true);
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("slno="+slno);
+      $.ajax({
+       url:"<?php echo base_url(); ?>views/api/showevent",
+       method:"POST",
+       dataType:'json',
+       cache : false,
+       data:{slno:slno},
+       success:function(data)
+       {
+         console.log(data);
+         $('#title').html(data.title);
+         $('#city').html(data.city);
+         $('#image').attr('src',"<?php echo base_url(); ?>assets"+data.image);
+         $('#content').html(data.content);
+         $('#date').html(data.date);
+         $('#location').html(data.location);
+       }
+      });
     }
 
     function show(slno) {
       //alert(slno);
       $('#portfolioModal2').modal('show')
 
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
-          document.getElementById('body2').innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("POST", "views/admin/api/shownews.php", true);
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("slno="+slno);
+      $.ajax({
+       url:"<?php echo base_url(); ?>views/api/shownews",
+       method:"POST",
+       dataType:'json',
+       cache : false,
+       data:{slno:slno},
+       success:function(data)
+       {
+         console.log(data);
+         $('#title1').html(data.title);
+         $('#image1').attr('src',"<?php echo base_url(); ?>assets"+data.image);
+         $('#date1').html(data.date);
+         $('#location1').html(data.location);
+       }
+      });
     }
   </script>

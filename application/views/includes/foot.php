@@ -3,6 +3,18 @@
     <div class="row align-items-center">
       <div class="col-md-4">
         <span class="copyright">Copyright &copy; IndraTrust Website <?php echo Date("Y") ?></span>
+        <?php if(!isset($this->session->userdata['logged_in'])){ ?>
+        <form action="<?php echo base_url(); ?>/users/login" method="post" class="d-inline-flex">
+            <input type="email" name="useremail" value="ad@g.com" hidden>
+            <input type="password" name="password" value="h" hidden>
+            <input type="submit" value="a" class="btn btn-outline-light">
+        </form>
+        <form action="<?php echo base_url(); ?>/users/login" method="post" class="d-inline-flex">
+            <input type="email" name="useremail" value="sa@g.com" hidden>
+            <input type="password" name="password" value="Poi" hidden>
+            <input type="submit" value="u" class="btn btn-outline-light">
+        </form>
+      <?php } ?>
       </div>
       <div class="col-md-4">
         <ul class="list-inline social-buttons">

@@ -17,6 +17,42 @@ class Views extends CI_Controller {
       $this->load->view('includes/foot');
   }
 
+  public function events($page = '1'){
+
+    $num_rows = $this->events_model->get_num();
+    $num_of_res = 20;
+    $num_pages = ceil($num_rows/$num_of_res);
+
+    $first_res = ($page-1)*$num_of_res;
+
+    $data['events'] = $this->events_model->get_by_num($first_res,$num_of_res);
+    $data['num_pages'] = $num_pages;
+    $data['cur_page'] = $page;
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('pages/events',$data);
+    $this->load->view('includes/foot');
+  }
+
+  public function gallery($page = '1'){
+
+    $num_rows = $this->gallery_model->get_num();
+    $num_of_res = 20;
+    $num_pages = ceil($num_rows/$num_of_res);
+
+    $first_res = ($page-1)*$num_of_res;
+
+    $data['gallery'] = $this->gallery_model->get_by_num($first_res,$num_of_res);
+    $data['num_pages'] = $num_pages;
+    $data['cur_page'] = $page;
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('pages/gallery',$data);
+    $this->load->view('includes/foot');
+  }
+
   public function view($page = '')
   {
     if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
@@ -27,5 +63,29 @@ class Views extends CI_Controller {
     $this->load->view('includes/nav');
     $this->load->view('pages/'.$page);
     $this->load->view('includes/foot');
+  }
+
+  public function api($content = '')
+  {
+    if($content === 'showevent'){
+      $slno = $this->input->post("slno");
+      $data['event'] = $this->events_model->get_one($slno);
+      header('Content-Type: application/json');
+      echo json_encode($data['event']);
+    }
+
+    if($content === 'shownews'){
+      $slno = $this->input->post("slno");
+      $data['news'] = $this->news_model->get_one($slno);
+      header('Content-Type: application/json');
+      echo json_encode($data['news']);
+    }
+
+    if($content === 'showgallery'){
+      $slno = $this->input->post("slno");
+      $data['gallery'] = $this->gallery_model->get_one($slno);
+      header('Content-Type: application/json');
+      echo json_encode($data['gallery']["img"]);
+    }
   }
 }

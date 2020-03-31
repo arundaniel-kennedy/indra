@@ -1,105 +1,148 @@
 
-  <div class="container py-5" >
+<section class="page-section mt-5" id="login">
+  <div class="container py-5" data-aos="zoom-out-up" data-aos-duration="1000">
     <div class="jumbotron box2 pt-4 boxer">
 
-      <p class="text-center font-weight-bolder h3">Register</p><br>
+      <h2 class="section-heading text-center">Register</h2>
+      <sup style="color:red">* All Fields are Required</sup>
+      <br><br>
 
       <form enctype="multipart/form-data" action="views/add.php" method="post" name="myForm" onsubmit="return validateForm();">
 
         <input type="hidden" name="MAX_FILE_SIZE" value="9000000" />
 
-        <div class="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" class="form-control" placeholder="Enter Name"   pattern="[a-zA-Z]*" required autocomplete="given-name">
-        </div>
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" name="useremail" class="form-control" placeholder="Enter Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" onfocusout="checkemail()" autocomplete="email">
-          <p class="small ml-2" id="err"></p>
-        </div>
-        <div class="form-group">
-          <label>Mobile Number:</label>
-          <input type="text" name="mnumber" class="form-control" placeholder="Enter Phone Number" required pattern="[5-9]{1}[0-9]{9}" autocomplete="mobile">
-        </div>
-        <div class="form-group">
-          <label>Education:</label>
-          <input type="text" name="education" class="form-control" placeholder="Enter Educational Qualification" required>
-        </div>
-        <div class="form-group">
-          <label>Blood Group:</label>
-          <select class="custom-select" name="bloodgroup">
-            <option>Select Blood Group</option>
-            <option>O +ve</option>
-            <option>O -ve</option>
-            <option>A +ve</option>
-            <option>A -ve</option>
-            <option>B +ve</option>
-            <option>B -ve</option>
-            <option>AB +ve</option>
-            <option>AB -ve</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Father's Name:</label>
-          <input type="text" name="fathername" class="form-control" placeholder="Enter Father Name" pattern="[a-zA-Z]*" required>
-        </div>
-        <div class="form-group">
-          <label>Father's Occupation:</label>
-          <input type="text" name="fatheroccupation" class="form-control" placeholder="Enter Father's Occupation" required>
-        </div>
-        <div class="form-group">
-          <label>Mother's Name:</label>
-          <input type="text" name="mothername" class="form-control" placeholder="Enter Mother Name" pattern="[a-zA-Z]*" required>
-        </div>
-        <div class="form-group">
-          <label>Mother's occupation:</label>
-          <input type="text" name="motheroccupation" class="form-control" placeholder="Enter Mother Occupation" required>
-        </div>
-        <div class="form-group">
-          <label>Address:</label>
-          <textarea name="address" rows="3" class="form-control" required placeholder="Enter your address"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Choose Wings:</label><br>
-          <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="greenwing" value="greenwing" id="greenwing">
-            <label class="custom-control-label" for="greenwing">
-              Green Wing
-            </label>
+        <h4>A little about you</h4><br>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>First Name<sup style="color:red">*</sup>:</label>
+              <input type="text" name="name" class="form-control" placeholder="Given Name"   pattern="[a-zA-Z]*" required autocomplete="given-name">
+            </div>
           </div>
-          <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="servicewing" value="servicewing" id="servicewing">
-            <label class="custom-control-label" for="servicewing">
-              Service Wing
-            </label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="socialwing" value="socialwing" id="socialwing">
-            <label class="custom-control-label" for="socialwing">
-              Social Wing
-            </label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="techowing" value="techowing" id="techowing">
-            <label class="custom-control-label" for="techowing">
-              Techno Wing
-            </label>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Last Name<sup style="color:red">*</sup>:</label>
+              <input type="text" name="ln" class="form-control" placeholder="Family Name or Initials"   pattern="[a-zA-Z]*" required autocomplete="given-name">
+            </div>
           </div>
         </div>
 
-
-        <div class="form-group">
-          <label>Set Password:</label>
-          <input type="password" name="password" class="form-control" value="" required placeholder="Enter Password" pattern="{8,12}">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Blood Group<sup style="color:red">*</sup>:</label>
+              <select class="custom-select" name="bloodgroup" required>
+                <option value="">Select Blood Group</option>
+                <option>O +ve</option>
+                <option>O -ve</option>
+                <option>A +ve</option>
+                <option>A -ve</option>
+                <option>B +ve</option>
+                <option>B -ve</option>
+                <option>AB +ve</option>
+                <option>AB -ve</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Age<sup style="color:red">*</sup>:</label>
+              <input type="text" name="age" class="form-control" placeholder="Enter Age"   pattern="[a-zA-Z]*" required autocomplete="given-name">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Re-Enter Password:</label>
-          <input type="password" name="repassword" class="form-control" value="" required placeholder="Re-Enter Password" pattern="{8,12}" oninput="checkpass()">
-          <p class="small ml-2" id="rer"></p>
 
-          <div class="form-group">
-            <label for="img">Upload Image:</label><br>
-            <input type="file" class="form-control-file" name="img">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Education<sup style="color:red">*</sup>:</label>
+              <input type="text" name="education" class="form-control" placeholder="Enter Educational Qualification" required>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+
+          </div>
+        </div>
+        <br><br>
+
+        <h4>Where can you serve</h4><br>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Choose Wings<sup style="color:red">*</sup>:</label><br>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="greenwing" value="greenwing" id="greenwing">
+                <label class="custom-control-label" for="greenwing">
+                  Green Wing
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="servicewing" value="servicewing" id="servicewing">
+                <label class="custom-control-label" for="servicewing">
+                  Service Wing
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="socialwing" value="socialwing" id="socialwing">
+                <label class="custom-control-label" for="socialwing">
+                  Social Wing
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="techowing" value="techowing" id="techowing">
+                <label class="custom-control-label" for="techowing">
+                  Techno Wing
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Address<sup style="color:red">*</sup>:</label>
+              <textarea name="address" rows="3" class="form-control" required placeholder="Enter your address"></textarea>
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <h4>Your Contact Information</h4><br>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Mobile Number<sup style="color:red">*</sup>:</label>
+              <input type="text" name="mnumber" class="form-control" placeholder="Enter Phone Number" required pattern="[5-9]{1}[0-9]{9}" autocomplete="mobile">
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Email<sup style="color:red">*</sup>:</label>
+              <input type="email" name="useremail" class="form-control" placeholder="Enter Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" onfocusout="checkemail()" autocomplete="email">
+              <p class="small ml-2" id="err"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Set Password<sup style="color:red">*</sup>:</label>
+              <input type="password" name="password" class="form-control" value="" required placeholder="Enter Password" pattern="{8,12}">
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label>Re-Enter Password<sup style="color:red">*</sup>:</label>
+              <input type="password" name="repassword" class="form-control" value="" required placeholder="Re-Enter Password" pattern="{8,12}" oninput="checkpass()">
+              <p class="small ml-2" id="rer"></p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group">
+              <label for="img">Upload Profile Image<sup style="color:red">*</sup>:</label><br>
+              <input type="file" class="form-control-file" name="img">
+            </div>
           </div>
         </div>
         <center>

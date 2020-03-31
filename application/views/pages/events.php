@@ -10,26 +10,9 @@
               </div>
               <div class="row">
                 <?php
-                $sql = "SELECT * FROM events";
-                $result = $conn->query($sql);
 
-                $num_of_res = 20;
-                $num_rows = $result->num_rows;
-                $num_pages = ceil($num_rows/$num_of_res);
-
-                if(!isset($_GET['page'])){
-                  $page = 1;
-                }else{
-                  $page = $_GET['page'];
-                }
-
-                $first_res = ($page-1)*$num_of_res;
-
-                $sql = "SELECT * FROM events ORDER BY created_at DESC limit ".$first_res.",".$num_of_res;
-                $result = $conn->query($sql);
-
-                if($result->num_rows>0){
-                  while($row = $result->fetch_assoc()){
+                if(isset($events)){
+                  foreach($events as $row){
                 ?>
                 <div class="col-md-4 col-sm-12 col-lg-4 portfolio-item">
                   <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1" onclick="sho(<?php echo $row['slno'] ?>);">
@@ -38,7 +21,7 @@
                         <i class="fas fa-plus fa-3x"></i>
                       </div>
                     </div>
-                    <img class="w-100" height="230" src="<?php echo $row['image'] ?>" alt="">
+                    <img class="w-100" height="230" src="<?php echo base_url(); ?>assets<?php echo $row['image'] ?>" alt="">
                   </a>
                   <div class="portfolio-caption">
                     <h4><?php echo $row['title'] ?></h4>
@@ -51,30 +34,24 @@
                 echo "no events yet";
                 } ?>
               </div>
+
               <nav aria-label="">
                 <ul class="pagination justify-content-end">
                     <?php for($page=1;$page<=$num_pages;$page++){
-                          if(isset($_GET['page'])){
-                            if($page == $_GET['page']){
+                            if($page == $cur_page){
                     ?>
                     <li class="page-item active" aria-current="page">
-                      <a class="page-link" herf="events.php?page=<?php echo $page ?>">
+                      <a class="page-link" herf="<?php echo base_url(); ?>events/<?php echo $page ?>">
                         <?php echo $page ?>
                       </a>
                     </li>
                     <?php }else{ ?>
                     <li class="page-item">
-                      <a class="page-link bg-dark text-light" href="events.php?page=<?php echo $page ?>">
+                      <a class="page-link bg-dark text-light" href="<?php echo base_url(); ?>events/<?php echo $page ?>">
                         <?php echo $page ?>
                       </a>
                     </li>
-                  <?php }}else{ ?>
-                    <li class="page-item">
-                      <a class="page-link bg-dark text-light" href="events.php?page=<?php echo $page ?>">
-                        <?php echo $page ?>
-                      </a>
-                    </li>
-                    <?php }} ?>
+                  <?php }} ?>
                 </ul>
               </nav>
             </div>
@@ -95,8 +72,14 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="modal-body" id="body">
-              <!-- Project Details Go Here -->
-
+              <h2 class="text-uppercase" id="title"></h2>
+              <p class="item-intro text-muted" id="city"></p>
+              <img class="img-fluid d-block mx-auto" id="image" src="" alt="">
+              <p id="content"></p>
+              <ul class="list-inline">
+                <li id="date"></li>
+                <li id="location"></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -107,17 +90,22 @@
 
 <script>
 function sho(slno) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      document.getElementById('body').innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("POST", "views/admin/api/showevents.php", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("slno="+slno);
+  $.ajax({
+   url:"<?php echo base_url(); ?>views/api/showevent",
+   method:"POST",
+   dataType:'json',
+   cache : false,
+   data:{slno:slno},
+   success:function(data)
+   {
+     console.log(data);
+     $('#title').html(data.title);
+     $('#city').html(data.city);
+     $('#image').attr('src',"<?php echo base_url(); ?>assets"+data.image);
+     $('#content').html(data.content);
+     $('#date').html(data.date);
+     $('#location').html(data.location);
+   }
+  });
 }
 </script>
-
-<?php include 'foot.php'; ?>

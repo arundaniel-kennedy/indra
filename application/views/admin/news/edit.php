@@ -2,7 +2,7 @@
 <div class="container toppush3">
 <div class="jumbotron boxer box2">
   <a href="../homer.php" class="btn btn-outline-dark">Cancel Edit</a> <br><br>
-  <h4>Edit Events</h4><br>
+  <h4>Edit News</h4><br>
 
 <form enctype="multipart/form-data" action="<?php echo base_url(); ?>admin/news/update" method="post">
 

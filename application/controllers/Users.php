@@ -14,6 +14,16 @@ class Users extends CI_Controller {
     }
   }
 
+  public function generate(){
+    $id = $this->session->userdata['logged_in']['id'];
+    $data['user'] = $this->user_model->get_user($id);
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('user/generate',$data);
+    $this->load->view('includes/foot');
+  }
+
   public function login()
   {
 

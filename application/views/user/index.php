@@ -20,7 +20,7 @@ if(!isset($this->session->userdata['logged_in'])){
     <div style="margin-left:35%;margin-right:35%">
       <div class="row">
         <div class="col-lg-6 col-sm-12 text-center">
-          <a href="user/generate.php" style="font-size:1.5em" class="btn btn-success">
+          <a href="<?php echo base_url(); ?>user/generate" style="font-size:1.5em" class="btn btn-success">
             Generate ID
           </a>
         </div>
@@ -46,7 +46,7 @@ if(!isset($this->session->userdata['logged_in'])){
     <div style="margin-left:25%;margin-right:25%">
       <div class="row">
         <div class="col-lg-6 col-sm-12 text-center mb-3">
-          <a href="user/generate.php" style="font-size:1.5em" class="btn btn-success">
+          <a href="<?php echo base_url(); ?>user/generate" style="font-size:1.5em" class="btn btn-success">
             Generate ID
           </a>
         </div>

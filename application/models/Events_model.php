@@ -23,9 +23,21 @@ class Events_model extends CI_Model{
     return $query->row_array();
   }
 
-  public function get_by_page()
+  public function get_num()
   {
+    $this->db->select("*");
+    $this->db->from("events");
+    $query = $this->db->get();
+    return $query->num_rows();
+  }
 
+  public function get_by_num($first_res,$num_of_res)
+  {
+    $this->db->from("events");
+    $this->db->order_by('created_at', 'DESC');
+    $this->db->limit($num_of_res,$first_res);
+    $query = $this->db->get();
+    return $query->result_array();
   }
 
   public function get_image($slno)

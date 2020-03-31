@@ -21,10 +21,10 @@
           <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>about">About Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>">Events</a>
+          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>events/">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>">News</a>
+          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>#news">News</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown10" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,7 +38,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>">Gallery</a>
+          <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>/gallery">Gallery</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="<?php echo base_url(); ?>ina">INA</a>

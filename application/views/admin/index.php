@@ -161,10 +161,10 @@
       <div class="row">
         <h3 class="col-lg-2 col-sm-12">Gallery</h3>
         <div class="col-lg-3 col-sm-12 mb-2">
-          <a href="gallery/add.php" class="ml-2 btn btn-success">Add Images</a>
+          <a href="<?php echo base_url(); ?>admin/gallery/add" class="ml-2 btn btn-success">Add Images</a>
         </div>
         <div class="col-lg-3 col-sm-12">
-          <a href="fullgallery.php" class="ml-2 btn btn-primary">All Images</a>
+          <a href="<?php echo base_url(); ?>admin/gallery/fullgallery" class="ml-2 btn btn-primary">All Images</a>
         </div>
       </div>
 
@@ -201,13 +201,13 @@
                 ?>
               </td>
               <td>
-                <form action="gallery/edit.php" method="post">
+                <form action="<?php echo base_url(); ?>admin/gallery/edit" method="post">
                   <input type="text" name="slno" value="<?php echo $row['slno'] ?>" hidden>
                   <button type="submit" class="btn btn-warning"><span class='fa fa-pencil-alt'></span></button>
                 </form>
               </td>
               <td>
-                <form action="gallery/delete.php" method="post">
+                <form action="<?php echo base_url(); ?>admin/gallery/delete" method="post">
                   <input type="text" name="slno" value="<?php echo $row['slno'] ?>" hidden>
                   <button type="submit" class="btn btn-danger"><span class='fa fa-trash'></span></button>
                 </form>

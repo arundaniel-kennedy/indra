@@ -21,7 +21,17 @@ class User_model extends CI_Model{
     }
   }
 
-  function user_info($email)
+  public function get_user($id)
+  {
+    $condition = "id =" . "'" . $id ."'" ;
+    $this->db->select('*');
+    $this->db->from('users');
+    $this->db->where($condition);
+    $query = $this->db->get();
+    return $query->row_array();
+  }
+
+  public function user_info($email)
   {
     $condition = "email =" . "'" . $email ."'" ;
     $this->db->select('*');

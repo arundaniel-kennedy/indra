@@ -19,18 +19,23 @@
       <div class="col-md-4">
         <ul class="list-inline social-buttons">
           <li class="list-inline-item">
-            <a href="#">
+            <a href="https://www.facebook.com/indratrustngo/">
               <i class="fab fa-facebook-f"></i>
             </a>
           </li>
           <li class="list-inline-item">
-            <a href="#">
-              <i class="fab fa-twitter"></i>
+            <a href="https://www.instagram.com/indra_india/">
+              <i class="fab fa-instagram"></i>
             </a>
           </li>
           <li class="list-inline-item">
-            <a href="#">
+            <a href="https://www.youtube.com/channel/UC52mmXikFyF0eU65gAncKBQ">
               <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="mailto:info@indratrust.in">
+              <i class="fa fa-envelope"></i>
             </a>
           </li>
         </ul>
@@ -95,9 +100,7 @@ once: true
 
 <?php
   if(isset($_SESSION['error'])){
-    foreach ($_SESSION['error'] as $error) {
-      echo "<script>toastr.error('".$error."')</script>";
-    }
+
     unset($_SESSION['error']);
   }
   if(isset($_SESSION['success'])){

@@ -65,6 +65,17 @@ class Gallery_model extends CI_Model{
     return $query->row_array();
   }
 
+  public function update_gallery($data,$slno)
+  {
+    $result = $this->db->update("gallery",$data,"slno='".$slno."'");
+    if($result === true){
+      return "success";
+    }else{
+      return $this->db->error();
+    }
+  }
+
+
   public function delete_gallery($slno)
   {
     $this->db->where("slno",$slno);

@@ -73,7 +73,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="" class="img-fluid" alt="" id="content">
+        <img src="" class="w-100" alt="" id="content">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -97,7 +97,7 @@ function sho(slno,i) {
        var img = data.split(",");
        var div = "";
        for (var j = 0; j < img.length; j++) {
-         document.getElementById('img'+i).innerHTML +="<div class=\"col-lg-4 col-sm-12 col-md-6 p-4\"><a style=\"cursor:pointer\" data-toggle=\"modal\" href=\"#modal\" onclick=\"show('"+img[j]+"');\"><img src=\"<?php echo base_url(); ?>assets"+img[j]+"\" class=\"img-fluid\"></a></div>"
+         document.getElementById('img'+i).innerHTML +="<div class=\"col-lg-3 col-sm-12 col-md-6 p-4\"><a style=\"cursor:pointer\" data-toggle=\"modal\" href=\"#modal\" onclick=\"show('<?php echo base_url(); ?>assets"+img[j]+"');\"><img src=\"<?php echo base_url(); ?>assets"+img[j]+"\" class=\"img-fluid\"></a></div>"
        }
        $("#collapse"+i).collapse('show');
      }
@@ -107,7 +107,7 @@ function sho(slno,i) {
 function show(image) {
   //alert(image);
   //$('#content').after(image);
+
   document.getElementById('content').src = image;
-  document.getElementById('content').alt = image;
 }
 </script>

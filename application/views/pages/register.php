@@ -99,7 +99,36 @@
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Address<sup style="color:red">*</sup>:</label>
-              <textarea name="address" rows="3" class="form-control" required placeholder="Enter your address"></textarea>
+              <input type="text" name="address" class="form-control" placeholder="Door no, Street Name, Area" required>
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>State:</label>
+                    <select class="custom-select" name="state" required onchange="getcities();">
+                      <option value="">Your state</option>
+                      <?php
+
+                        if(!empty($states)){
+                          foreach($states as $state){
+                      ?>
+                      <option value="<?php echo $state['state_code']?>"><?php echo $state['state_name']?></option>
+                      <?php
+                          }
+                        }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>City:</label>
+                    <select class="custom-select" name="city" required>
+                      <option value="">Your City</option>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -150,7 +179,7 @@
         </center>
       </form>
   <br>
-      Are you a Existing User? <a href="login.php" style="text-decoration:underline">Login Here</a>
+      Are you a Existing User? <a href="<?php echo base_url(); ?>login" style="text-decoration:underline">Login Here</a>
     </div>
   </div>
 
@@ -209,6 +238,28 @@
        toastr.error("This email address already exists! Proceed to Login");
        document.getElementById('err').style.color="red";
        document.getElementById('err').innerHTML='This email address already exists! Proceed to Login';
+     }
+    });
+  }
+
+  function getcities() {
+    var state = document.getElementsByName('state')[0].value;
+
+    $.ajax({
+     url:"<?php echo base_url(); ?>views/api/getcities",
+     method:"POST",
+     dataType:'json',
+     cache : false,
+     data:{state:state},
+     success:function(data)
+     {
+       //console.log(data[0].city_name);
+       option = '<option value="">Your City</option>'
+       for(var i=0;i<data.length;i++){
+         option += '<option value="'+data[i].city_name+'">'+data[i].city_name+'</option>'
+       }
+       //console.log(option);
+       document.getElementsByName('city')[0].innerHTML = option;
      }
     });
   }

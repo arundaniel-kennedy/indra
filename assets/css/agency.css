@@ -325,11 +325,6 @@ img::-moz-selection {
 header.masthead {
   text-align: center;
   color: white;
-  background-image: none;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
 }
 
 header.masthead .intro-text {
@@ -355,8 +350,8 @@ header.masthead .intro-text .intro-heading {
 
 @media (min-width: 768px) {
   header.masthead .intro-text {
-    padding-top: 300px;
-    padding-bottom: 200px;
+    padding-top: 30px;
+    padding-bottom: 20px;
   }
   header.masthead .intro-text .intro-lead-in {
     font-size: 40px;

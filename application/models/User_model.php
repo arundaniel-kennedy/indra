@@ -48,6 +48,26 @@ class User_model extends CI_Model{
     }
   }
 
+  public function update_user($data,$slno)
+  {
+    $result = $this->db->update("users",$data,"slno='".$slno."'");
+    if($result === true){
+      return "success";
+    }else{
+      return $this->db->error();
+    }
+  }
+
+  public function update_user_token($data,$email)
+  {
+    $result = $this->db->update("users",$data,"email='".$email."'");
+    if($result === true){
+      return "success";
+    }else{
+      return $this->db->error();
+    }
+  }
+
   public function get_user($id)
   {
     $condition = "id =" . "'" . $id ."'" ;

@@ -1,14 +1,37 @@
 
   <!-- Header -->
-  <header class="masthead mt-4">
+  <header class="masthead" id="firstpaint">
     <div class="container">
-      <div class="intro-text" data-aos="zoom-out-down" data-aos-duration="2000">
-        <div class="intro-lead-in text-dark">Welcome To IndraTrust!</div>
-        <div class="intro-heading text-uppercase text-dark">It's Nice To Meet You</div>
-        <br /><br />
-        <a class="js-scroll-trigger" href="#view">
-          <span class="fas fa-angle-down" style="font-size:7rem"></span>
-        </a>
+      <div class="d-none d-md-block">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12 h-100" style="margin-top:23vh;">
+              <div class="d-flex align-items-end" data-aos="fade-out" data-aos-duration="2000">
+                <img src="<?php echo base_url(); ?>assets/img/apj1.jpeg" class="w-100" alt="">
+              </div>
+          </div>
+          <div class="col-lg-6 col-sm-12 h-100">
+            <div class="intro-text" data-aos="fade-out" data-aos-duration="2000">
+              <div class="intro-lead-in text-dark">Welcome To IndraTrust!</div>
+              <div class="intro-heading text-uppercase text-dark">It's Nice To Meet You</div>
+              <a class="js-scroll-trigger" href="#view">
+                <span class="fas fa-angle-down" style="font-size:5rem"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-block d-md-none">
+        <div class="intro-text" data-aos="fade-out" data-aos-duration="2000">
+          <div class="intro-lead-in text-dark">Welcome To IndraTrust!</div>
+          <div class="d-flex align-items-end" data-aos="fade-out" data-aos-duration="2000">
+            <img src="<?php echo base_url(); ?>assets/img/apj1.jpeg" class="w-100" alt="">
+          </div>
+          <div class="intro-heading text-uppercase text-dark">It's Nice To Meet You</div>
+          <br /><br />
+          <a class="js-scroll-trigger" href="#view">
+            <span class="fas fa-angle-down" style="font-size:7rem"></span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -328,6 +351,14 @@
   </div>
 
   <script>
+  window.onload = rep;
+
+  function rep(){
+    setTimeout(function(){
+        $('#firstpaint').replaceWith("<img src='<?php echo base_url(); ?>assets/img/bg.jpeg' style='margin-top:12vh;' width='100%' class='d-none d-md-block' height='650vh' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg1.jpeg' class='d-block d-md-none' style='margin-top:6vh;' width='100%' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg2.jpeg' class='d-block d-md-none' style='' width='100%' data-aos='fade-in' data-aos-duration='1000'/>");
+      }, 5000);
+  }
+
     function sho(slno) {
       $.ajax({
        url:"<?php echo base_url(); ?>views/api/showevent",

@@ -15,13 +15,51 @@ class Users extends CI_Controller {
   }
 
   public function generate(){
-    $id = $this->session->userdata['logged_in']['id'];
-    $data['user'] = $this->user_model->get_user($id);
+    $email = $this->input->post('email');
 
-    $this->load->view('includes/head');
-    $this->load->view('includes/nav');
-    $this->load->view('user/generate',$data);
-    $this->load->view('includes/foot');
+    $result = $this->user_model->check_mail($email);
+    if($result){
+      $token = bin2hex(random_bytes(50));
+
+      $data = array(
+        'token' => $token
+      );
+
+      //$result = $this->users_model->update_user_token($data);
+      $url = base_url()."reset?token=".$token."&email=".$email."";
+      echo $url."<br />";
+
+      $config = Array(
+          'protocol' => 'smtp',
+          'smtp_host' => 'a2plcpnl0311.prod.iad2.secureserver.net',
+          'smtp_port' => 465,
+          'smtp_user' => 'info@indratrust.in',
+          'smtp_pass' => 'mav*CI@j+URv',
+          'mailtype'  => 'html',
+          'charset'   => 'iso-8859-1'
+      );
+
+      $this->email->initialize($config);
+      $this->email->set_newline("\r\n");
+
+      print_r($config);
+
+      $this->email->from('info@indratrust.in', 'IndraTrust');
+      $this->email->to($email);
+      $this->email->subject('Reset Password');
+      $msg = 'Use the Following link to reset your password: '.$url;
+      $this->email->message($msg);
+      $this->email->send();
+      echo $this->email->print_debugger();
+      /*if($this->email->send()){
+        echo $this->email->print_debugger();
+      }else{
+        echo $this->email->print_debugger();
+      }*/
+    }else{
+      echo json_encode("error_code_1");
+    }
+
   }
 
   public function register(){
@@ -80,13 +118,19 @@ class Users extends CI_Controller {
       'education' => $this->input->post('education'),
       'wings' => $wings,
       'address' => $this->input->post('address'),
+      'city' => $this->input->post('city'),
+      'state_code' => $this->input->post('state_code'),
       'mobile' => $this->input->post('mobile'),
       'email' => $this->input->post('useremail'),
       'password' => $this->input->post('password'),
       'profileimg' => $filename
     );
 
-    var_dump($data);
+    $result = $this->events_model->create_event($data);
+    if($result){
+      $_SESSION['success'] = "Registered Successfully";
+      redirect('login');
+    }
   }
 
   public function login()

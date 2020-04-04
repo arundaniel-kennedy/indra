@@ -1,5 +1,7 @@
 <div class="container">
   <div class="jumbotron toppush3">
+    <a href="<?php echo base_url(); ?>homer" class="btn btn-outline-dark">Back to home</a>
+    <br><br>
     <div class="row">
       <h3 class="col-lg-2 col-sm-12">Gallery</h3>
       <div class="col-lg-3 col-sm-12 mb-2">

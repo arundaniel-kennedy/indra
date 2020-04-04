@@ -17,6 +17,16 @@ class Views extends CI_Controller {
       $this->load->view('includes/foot');
   }
 
+  public function register()
+  {
+    $data['states'] = $this->register_model->get_states();
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('pages/register',$data);
+    $this->load->view('includes/foot');
+  }
+
   public function events($page = '1'){
 
     $num_rows = $this->events_model->get_num();
@@ -86,6 +96,13 @@ class Views extends CI_Controller {
       $data['gallery'] = $this->gallery_model->get_one($slno);
       header('Content-Type: application/json');
       echo json_encode($data['gallery']["img"]);
+    }
+
+    if($content === 'getcities'){
+      $state = $this->input->post("state");
+      $data['cities'] = $this->register_model->get_cities($state);
+      header('Content-Type: application/json');
+      echo json_encode($data['cities']);
     }
   }
 }

@@ -6,8 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['logout'] = 'users/logout';
 $route['home'] = 'users/view';
 $route['log-in'] = 'users/login';
+$route['register'] = 'views/register';
 $route['register-user'] = 'users/register';
-$route['user/generate'] = 'users/generate';
+$route['generate'] = 'users/generate';
 
 $route['homer'] = 'admin/index';
 

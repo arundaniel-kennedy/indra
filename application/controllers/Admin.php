@@ -424,7 +424,7 @@ class Admin extends CI_Controller {
 
       if(basename($_FILES["topimg"]['name']) != "" ){
 
-        $img = $this->gallery_model->get_image($slno);
+        $img = $this->gallery_model->get_top_image($slno);
 
         if(!unlink(FCPATH."assets".$img["topimg"])){
           $_SESSION['error'] = "Can't unlink image";
@@ -442,7 +442,7 @@ class Admin extends CI_Controller {
 
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('img')) {
+        if (!$this->upload->do_upload('topimg')) {
             $_SESSION['error'] = $this->upload->display_errors();
             redirect('alter_gallery/edit',$snlo);
         } else {
@@ -451,14 +451,70 @@ class Admin extends CI_Controller {
 
             $filename = $dir.$imgdata['file_name'];
             $data = array(
-              'image'    =>  $filename
+              'topimg'    =>  $filename
             );
-            $result = $this->events_model->update_event($data,$slno);
+            $result = $this->gallery_model->update_gallery($data,$slno);
             if($result){
               $_SESSION['success'] = "Gallery successfully updated";
-              redirect('view_gallery');
             }
         }
+      }
+      if(basename($_FILES["img"]['name'][0]) != "" ){
+
+        $img = $this->gallery_model->get_image($slno);
+        $images = explode(',',$img['img']);
+
+        foreach($images as $image ) {
+          if(!unlink(FCPATH."assets".$image)){
+            $_SESSION['error'] = "Couldn't unlink image";
+            redirect('view_gallery');
+          }
+        }
+
+        $config['upload_path'] = './assets/img/gallery/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        /*$config['max_size'] = 2000;
+        $config['max_width'] = 1500;
+        $config['max_height'] = 1500;*/
+
+        $this->load->library('upload', $config);
+
+        foreach ($_FILES['img']['name'] as $key => $image)
+        {
+           $_FILES['images[]']['name']= $_FILES['img']['name'][$key];
+           $_FILES['images[]']['type']= $_FILES['img']['type'][$key];
+           $_FILES['images[]']['tmp_name']= $_FILES['img']['tmp_name'][$key];
+           $_FILES['images[]']['error']= $_FILES['img']['error'][$key];
+           $_FILES['images[]']['size']= $_FILES['img']['size'][$key];
+
+           $config['file_name'] = time().$_FILES['images[]']['name'];
+
+           $this->upload->initialize($config);
+           if (!$this->upload->do_upload('images[]')) {
+               $_SESSION['error'] = array($this->upload->display_errors());
+               $flag++;
+           }
+        }
+
+        if(!$flag){
+          $dir = "/img/gallery/";
+
+          $img = '';
+          foreach ($_FILES['img']['name'] as $nam) {
+            $img = $img.",".$dir.time().$nam;
+          }
+          $img = substr($img,1);
+
+          $data = array(
+            'img'    =>  $img
+          );
+
+          $result = $this->gallery_model->update_gallery($data,$slno);
+          if($result){
+            $_SESSION['success'] = "Gallery successfully updated";
+          }
+        }
+        redirect('view_gallery');
       }
 
     }

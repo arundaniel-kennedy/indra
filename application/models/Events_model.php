@@ -63,7 +63,7 @@ class Events_model extends CI_Model{
   {
     $result = $this->db->update("events",$data,"slno='".$slno."'");
     if($result === true){
-      return "succcess";
+      return "success";
     }else{
       return $this->db->error();
     }

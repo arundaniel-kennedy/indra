@@ -4,7 +4,7 @@
   <a href="<?php echo base_url(); ?>homer" class="btn btn-outline-dark">Go Back</a> <br><br>
   <h4>New Gallery</h4><br>
 
-<form enctype="multipart/form-data" action='<?php echo base_url(); ?>admin/gallery/store' method="post">
+<form enctype="multipart/form-data" action='<?php echo base_url(); ?>new_gallery/store' method="post">
 
   <div class="form-group">
     <label>Top Image:</label><br>

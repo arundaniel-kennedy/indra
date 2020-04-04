@@ -2,33 +2,40 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
+
   public function index()
   {
-    $data['events']  = $this->events_model->get_all();
-    $data['news']    = $this->news_model->get_al();
-    $data['gallery'] = $this->gallery_model->get_all();
-
     $this->load->view('includes/head');
     $this->load->view('includes/nav');
-    $this->load->view('admin/index',$data);
+    $this->load->view('admin/index');
     $this->load->view('includes/foot');
   }
 
-  public function events($operation = ''){
+  public function view_events($page = '1'){
+    //viewing events
+    $num_rows = $this->events_model->get_num();
+    $num_of_res = 20;
+    $num_pages = ceil($num_rows/$num_of_res);
+
+    $first_res = ($page-1)*$num_of_res;
+
+    $data['events'] = $this->events_model->get_by_num($first_res,$num_of_res);
+    $data['num_pages'] = $num_pages;
+    $data['cur_page'] = $page;
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('admin/events/view',$data);
+    $this->load->view('includes/foot');
+
+  }
+
+  public function new_event($operation = ''){
+    //create events
     if ($operation === 'add') {
       $this->load->view('includes/head');
       $this->load->view('includes/nav');
       $this->load->view('admin/events/add');
-      $this->load->view('includes/foot');
-    }
-
-    if ($operation === 'edit') {
-      $slno = $this->input->post('slno');
-      $data['row'] = $this->events_model->get_one($slno);
-
-      $this->load->view('includes/head');
-      $this->load->view('includes/nav');
-      $this->load->view('admin/events/edit',$data);
       $this->load->view('includes/foot');
     }
 
@@ -46,7 +53,7 @@ class Admin extends CI_Controller {
 
       if (!$this->upload->do_upload('img')) {
           $_SESSION['error'] = array($this->upload->display_errors());
-          redirect('admin/events/add');
+          redirect('new_event/add');
       } else {
           $dir = "/img/events/";
           $imgdata = $this->upload->data();
@@ -63,10 +70,24 @@ class Admin extends CI_Controller {
           $result = $this->events_model->create_event($data);
           if($result){
             $_SESSION['success'] = "Event successfully added";
-            redirect('homer');
+            redirect('view_events');
           }
       }
-      redirect('admin/events/add');
+      redirect('new_event/add');
+    }
+    //end of create events
+  }
+
+  public function alter_event($operation = ''){
+    //edit events
+    if ($operation === 'edit') {
+      $slno = $this->input->post('slno');
+      $data['row'] = $this->events_model->get_one($slno);
+
+      $this->load->view('includes/head');
+      $this->load->view('includes/nav');
+      $this->load->view('admin/events/edit',$data);
+      $this->load->view('includes/foot');
     }
 
     if($operation === 'update'){
@@ -78,7 +99,7 @@ class Admin extends CI_Controller {
 
         if(!unlink(FCPATH."assets".$img["image"])){
           $_SESSION['error'] = array("error");
-          redirect('admin/events/edit',$slno);
+          redirect('alter_event/edit',$slno);
         }
 
         $image = time().$_FILES["img"]['name'];
@@ -94,7 +115,7 @@ class Admin extends CI_Controller {
 
         if (!$this->upload->do_upload('img')) {
             $_SESSION['error'] = array($this->upload->display_errors());
-            redirect('admin/events/edit');
+            redirect('alter_event/edit',$slno);
         } else {
             $dir = "/img/events/";
             $imgdata = $this->upload->data();
@@ -104,27 +125,20 @@ class Admin extends CI_Controller {
               'image'    =>  $filename
             );
             $result = $this->events_model->update_event($data,$slno);
-            if($result){
-              $_SESSION['success'] = "Event successfully updated";
-              redirect('homer');
-            }
-        }
-      }else{
-        $data = array(
-          'title'    =>  $this->input->post('title'),
-          'date'     =>  $this->input->post('date'),
-          'content'  =>  $this->input->post('content'),
-          'city'     =>  $this->input->post('city'),
-          'location' =>  $this->input->post('location'),
-
-        );
-        $result = $this->events_model->update_event($data,$slno);
-        if($result){
-          $_SESSION['success'] = "Event successfully updated";
-          redirect('homer');
         }
       }
-
+      $data = array(
+        'title'    =>  $this->input->post('title'),
+        'date'     =>  $this->input->post('date'),
+        'content'  =>  $this->input->post('content'),
+        'city'     =>  $this->input->post('city'),
+        'location' =>  $this->input->post('location'),
+      );
+      $result = $this->events_model->update_event($data,$slno);
+      if($result){
+        $_SESSION['success'] = "Event successfully updated";
+        redirect('view_events');
+      }
     }
 
     if($operation === 'delete'){
@@ -133,33 +147,43 @@ class Admin extends CI_Controller {
 
       if(!unlink(FCPATH."assets".$img["image"])){
         $_SESSION['error'] = array("Couldn't unlink");
-        redirect('homer');
+        redirect('view_events');
       }
 
       $result = $this->events_model->delete_event($slno);
       if($result){
         $_SESSION['success'] = "Event successfully Deleted";
       }
-      redirect('homer');
+      redirect('view_events');
     }
-
+    //end of edit events
   }
 
-  public function news($operation = ''){
+  public function view_news($page = '1'){
+    // view all news
+    $num_rows = $this->news_model->get_num();
+
+    $num_of_res = 20;
+    $num_pages = ceil($num_rows/$num_of_res);
+
+    $first_res = ($page-1)*$num_of_res;
+
+    $data['news'] = $this->news_model->get_by_num($first_res,$num_of_res);
+    $data['num_pages'] = $num_pages;
+    $data['cur_page'] = $page;
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('admin/news/view',$data);
+    $this->load->view('includes/foot');
+  }
+
+  public function new_news($operation = ''){
+    //create news
     if ($operation === 'add') {
       $this->load->view('includes/head');
       $this->load->view('includes/nav');
       $this->load->view('admin/news/add');
-      $this->load->view('includes/foot');
-    }
-
-    if ($operation === 'edit') {
-      $slno = $this->input->post('slno');
-      $data['row'] = $this->news_model->get_one($slno);
-
-      $this->load->view('includes/head');
-      $this->load->view('includes/nav');
-      $this->load->view('admin/news/edit',$data);
       $this->load->view('includes/foot');
     }
 
@@ -177,7 +201,7 @@ class Admin extends CI_Controller {
 
       if (!$this->upload->do_upload('img')) {
           $_SESSION['error'] = array($this->upload->display_errors());
-          redirect('admin/news/add');
+          redirect('new_news/add');
       } else {
           $dir = "/img/news/";
           $imgdata = $this->upload->data();
@@ -192,10 +216,24 @@ class Admin extends CI_Controller {
           $result = $this->news_model->create_news($data);
           if($result){
             $_SESSION['success'] = "News successfully added";
-            redirect('homer');
+            redirect('view_news');
           }
       }
-      redirect('admin/news/add');
+      redirect('new_news/add');
+    }
+    //end of create news
+  }
+
+  public function alter_news($operation = ''){
+    //edit news
+    if ($operation === 'edit') {
+      $slno = $this->input->post('slno');
+      $data['row'] = $this->news_model->get_one($slno);
+
+      $this->load->view('includes/head');
+      $this->load->view('includes/nav');
+      $this->load->view('admin/news/edit',$data);
+      $this->load->view('includes/foot');
     }
 
     if($operation === 'update'){
@@ -207,7 +245,7 @@ class Admin extends CI_Controller {
 
         if(!unlink(FCPATH."assets".$img["image"])){
           $_SESSION['error'] = array("error");
-          redirect('homer');
+          redirect('alter_news/edit',$slno);
         }
 
         $image = time().$_FILES["img"]['name'];
@@ -223,7 +261,7 @@ class Admin extends CI_Controller {
 
         if (!$this->upload->do_upload('img')) {
             $_SESSION['error'] = array($this->upload->display_errors());
-            redirect('homer');
+            redirect('alter_news/edit',$slno);
         } else {
             $dir = "/img/news/";
             $imgdata = $this->upload->data();
@@ -233,25 +271,19 @@ class Admin extends CI_Controller {
               'image'    =>  $filename
             );
             $result = $this->news_model->update_news($data,$slno);
-            if($result){
-              $_SESSION['success'] = "News successfully updated";
-              redirect('homer');
-            }
-        }
-      }else{
-        $data = array(
-          'title'    =>  $this->input->post('title'),
-          'date'     =>  $this->input->post('date'),
-          'location' =>  $this->input->post('location'),
-
-        );
-        $result = $this->news_model->update_news($data,$slno);
-        if($result){
-          $_SESSION['success'] = "News successfully updated";
-          redirect('homer');
         }
       }
+      $data = array(
+        'title'    =>  $this->input->post('title'),
+        'date'     =>  $this->input->post('date'),
+        'location' =>  $this->input->post('location'),
 
+      );
+      $result = $this->news_model->update_news($data,$slno);
+      if($result){
+        $_SESSION['success'] = "News successfully updated";
+        redirect('view_news');
+      }
     }
 
     if($operation === 'delete'){
@@ -260,14 +292,14 @@ class Admin extends CI_Controller {
 
       if(!unlink(FCPATH."assets".$img["image"])){
         $_SESSION['error'] = array("Couldn't unlink");
-        redirect('homer');
+        redirect('view_news');
       }
 
       $result = $this->news_model->delete_news($slno);
       if($result){
-        $_SESSION['success'] = "Event successfully Deleted";
+        $_SESSION['success'] = "News successfully Deleted";
       }
-      redirect('homer');
+      redirect('view_news');
     }
 
     if($operation === 'hide'){
@@ -277,28 +309,38 @@ class Admin extends CI_Controller {
       );
       $result = $this->news_model->update_news($data,$slno);
       if($result){
-        $_SESSION['success'] = "News successfully updated";
-        redirect('homer');
+        $_SESSION['success'] = "News updated";
+        redirect('view_news');
       }
     }
-
+    //end of edit news
   }
 
-  public function gallery($operation = ''){
+  public function view_gallery($page = '1'){
+    // view all news
+    $num_rows = $this->gallery_model->get_num();
+
+    $num_of_res = 20;
+    $num_pages = ceil($num_rows/$num_of_res);
+
+    $first_res = ($page-1)*$num_of_res;
+
+    $data['gallery'] = $this->gallery_model->get_by_num($first_res,$num_of_res);
+    $data['num_pages'] = $num_pages;
+    $data['cur_page'] = $page;
+
+    $this->load->view('includes/head');
+    $this->load->view('includes/nav');
+    $this->load->view('admin/gallery/view',$data);
+    $this->load->view('includes/foot');
+  }
+
+  public function new_gallery($operation = ''){
+    //create gallery
     if ($operation === 'add') {
       $this->load->view('includes/head');
       $this->load->view('includes/nav');
       $this->load->view('admin/gallery/add');
-      $this->load->view('includes/foot');
-    }
-
-    if ($operation === 'edit') {
-      $slno = $this->input->post('slno');
-      $data['row'] = $this->gallery_model->get_one($slno);
-
-      $this->load->view('includes/head');
-      $this->load->view('includes/nav');
-      $this->load->view('admin/gallery/edit',$data);
       $this->load->view('includes/foot');
     }
 
@@ -357,10 +399,24 @@ class Admin extends CI_Controller {
           $result = $this->gallery_model->create_gallery($data);
           if($result){
             $_SESSION['success'] = "Gallery successfully added";
-            redirect('homer');
+            redirect('view_gallery');
           }
       }
-      redirect('admin/gallery/add');
+      redirect('new_gallery/add');
+    }
+    //end of create gallery
+  }
+
+  public function alter_gallery($operation = ''){
+    //edit gallery
+    if ($operation === 'edit') {
+      $slno = $this->input->post('slno');
+      $data['row'] = $this->gallery_model->get_one($slno);
+
+      $this->load->view('includes/head');
+      $this->load->view('includes/nav');
+      $this->load->view('admin/gallery/edit',$data);
+      $this->load->view('includes/foot');
     }
 
     if($operation === 'update'){
@@ -370,9 +426,9 @@ class Admin extends CI_Controller {
 
         $img = $this->gallery_model->get_image($slno);
 
-        if(!unlink(FCPATH."assets".$img["image"])){
-          $_SESSION['error'] = array("error");
-          redirect('admin/gallery/edit',$slno);
+        if(!unlink(FCPATH."assets".$img["topimg"])){
+          $_SESSION['error'] = "Can't unlink image";
+          redirect('view_gallery');
         }
 
         $image = time().$_FILES["topimg"]['name'];
@@ -387,8 +443,8 @@ class Admin extends CI_Controller {
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('img')) {
-            $_SESSION['error'] = array($this->upload->display_errors());
-            redirect('admin/events/edit');
+            $_SESSION['error'] = $this->upload->display_errors();
+            redirect('alter_gallery/edit',$snlo);
         } else {
             $dir = "/img/gallery/";
             $imgdata = $this->upload->data();
@@ -399,8 +455,8 @@ class Admin extends CI_Controller {
             );
             $result = $this->events_model->update_event($data,$slno);
             if($result){
-              $_SESSION['success'] = "Event successfully updated";
-              redirect('homer');
+              $_SESSION['success'] = "Gallery successfully updated";
+              redirect('view_gallery');
             }
         }
       }
@@ -409,19 +465,29 @@ class Admin extends CI_Controller {
 
     if($operation === 'delete'){
       $slno = $this->input->post('slno');
-      $img = $this->events_model->get_image($slno);
+      $image = $this->gallery_model->get_top_image($slno);
 
-      if(!unlink(FCPATH."assets".$img["image"])){
-        $_SESSION['error'] = array("Couldn't unlink");
-        redirect('homer');
+      if(!unlink(FCPATH."assets".$image["topimg"])){
+        $_SESSION['error'] = "Couldn't unlink image";
+        redirect('view_gallery');
       }
 
-      $result = $this->events_model->delete_event($slno);
+      $img = $this->gallery_model->get_image($slno);
+      $images = explode(',',$img['img']);
+
+      foreach($images as $image ) {
+        if(!unlink(FCPATH."assets".$image)){
+          $_SESSION['error'] = "Couldn't unlink image";
+          redirect('view_gallery');
+        }
+      }
+
+      $result = $this->gallery_model->delete_gallery($slno);
       if($result){
-        $_SESSION['success'] = "Event successfully Deleted";
+        $_SESSION['success'] = "Gallery successfully Deleted";
       }
-      redirect('homer');
+      redirect('view_gallery');
     }
-
+    //end of edit gallery
   }
 }

@@ -100,7 +100,13 @@ once: true
 
 <?php
   if(isset($_SESSION['error'])){
-
+    if(is_array($_SESSION['error'])){
+      foreach ($_SESSION['error'] as $error) {
+        echo "<script>toastr.error('".$error."')</script>";
+      }
+    }else{
+      echo "<script>toastr.error('".$_SESSION['error']."')</script>";
+    }
     unset($_SESSION['error']);
   }
   if(isset($_SESSION['success'])){

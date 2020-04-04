@@ -4,7 +4,7 @@
   <a href="../homer.php" class="btn btn-outline-dark">Go Back</a> <br><br>
   <h4>New Events</h4><br>
 
-<form enctype="multipart/form-data" action='<?php echo base_url(); ?>admin/events/store' method="post">
+<form enctype="multipart/form-data" action='<?php echo base_url(); ?>new_event/store' method="post">
 
   <input type="hidden" name="MAX_FILE_SIZE" value="9000000" />
 

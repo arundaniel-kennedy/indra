@@ -6,7 +6,7 @@
 
     <?php echo validation_errors();?>
 
-    <?php echo form_open('users/login'); ?>
+    <?php echo form_open('log-in'); ?>
       <div class="form-group">
         <label>Email:</label>
         <input type="email" name="useremail" class="form-control" placeholder="Enter Email" required autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">

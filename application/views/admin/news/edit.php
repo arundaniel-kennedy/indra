@@ -1,10 +1,10 @@
 
 <div class="container toppush3">
 <div class="jumbotron boxer box2">
-  <a href="../homer.php" class="btn btn-outline-dark">Cancel Edit</a> <br><br>
+  <a href="<?php echo base_url(); ?>view_news" class="btn btn-outline-dark">Cancel Edit</a> <br><br>
   <h4>Edit News</h4><br>
 
-<form enctype="multipart/form-data" action="<?php echo base_url(); ?>admin/news/update" method="post">
+<form enctype="multipart/form-data" action="<?php echo base_url(); ?>alter_news/update" method="post">
 
   <input type="text" name="slno" value="<?php echo $row['slno']?>" hidden>
 

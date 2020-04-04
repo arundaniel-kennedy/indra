@@ -4,7 +4,7 @@
   <a href="../homer.php" class="btn btn-outline-dark">Cancel Edit</a> <br><br>
   <h4>Edit Events</h4><br>
 
-<form enctype="multipart/form-data" action="<?php echo base_url(); ?>admin/events/update" method="post">
+<form enctype="multipart/form-data" action="<?php echo base_url(); ?>alter_event/update" method="post">
 
   <input type="text" name="slno" value="<?php echo $row['slno']?>" hidden>
 

@@ -43,6 +43,34 @@ class Gallery_model extends CI_Model{
   public  function create_gallery($data){
     $result = $this->db->insert("gallery",$data);
     if($result === true){
+      return "success";
+    }else{
+      return $this->db->error();
+    }
+  }
+
+  public function get_top_image($slno){
+    $this->db->select("topimg");
+    $this->db->from("gallery");
+    $this->db->where("slno='".$slno."'");
+    $query = $this->db->get();
+    return $query->row_array();
+  }
+
+  public function get_image($slno){
+    $this->db->select("img");
+    $this->db->from("gallery");
+    $this->db->where("slno='".$slno."'");
+    $query = $this->db->get();
+    return $query->row_array();
+  }
+
+  public function delete_gallery($slno)
+  {
+    $this->db->where("slno",$slno);
+    $result = $this->db->delete("gallery");
+
+    if($result === true){
       return "succcess";
     }else{
       return $this->db->error();

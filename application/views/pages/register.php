@@ -7,11 +7,11 @@
       <sup style="color:red">* All Fields are Required</sup>
       <br><br>
 
-      <form enctype="multipart/form-data" action="views/add.php" method="post" name="myForm" onsubmit="return validateForm();">
+      <form enctype="multipart/form-data" action="<?php echo base_url();?>register-user" method="post" name="myForm" onsubmit="return validateForm();">
 
         <input type="hidden" name="MAX_FILE_SIZE" value="9000000" />
 
-        <h4>A little about you</h4><br>
+        <h4>A Little About You!</h4><br>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
@@ -47,7 +47,7 @@
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Age<sup style="color:red">*</sup>:</label>
-              <input type="text" name="age" class="form-control" placeholder="Enter Age"   pattern="[a-zA-Z]*" required autocomplete="given-name">
+              <input type="text" name="age" class="form-control" placeholder="Enter Age"   pattern="[0-9]*" required>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
         </div>
         <br><br>
 
-        <h4>Where can you serve</h4><br>
+        <h4>Where Can You Serve?</h4><br>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
@@ -105,7 +105,7 @@
         </div>
         <br><br>
 
-        <h4>Your Contact Information</h4><br>
+        <h4>Your Contact Information!</h4><br>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
@@ -126,13 +126,13 @@
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Set Password<sup style="color:red">*</sup>:</label>
-              <input type="password" name="password" class="form-control" value="" required placeholder="Enter Password" pattern="{8,12}">
+              <input type="password" name="password" class="form-control" value="" required placeholder="Enter Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Re-Enter Password<sup style="color:red">*</sup>:</label>
-              <input type="password" name="repassword" class="form-control" value="" required placeholder="Re-Enter Password" pattern="{8,12}" oninput="checkpass()">
+              <input type="password" name="repassword" class="form-control" value="" required placeholder="Re-Enter Password" oninput="checkpass()">
               <p class="small ml-2" id="rer"></p>
             </div>
           </div>
@@ -141,7 +141,7 @@
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label for="img">Upload Profile Image<sup style="color:red">*</sup>:</label><br>
-              <input type="file" class="form-control-file" name="img">
+              <input type="file" class="form-control-file" name="img" required>
             </div>
           </div>
         </div>
@@ -193,22 +193,23 @@
       document.getElementById('rer').innerHTML='Passwords match';
     }
   }
+
   function checkemail() {
     var email = document.getElementsByName('useremail')[0].value;
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          //console.log(this.responseText);
-          if(this.responseText==1){
-            toastr.error("This email address already exists! Proceed to Login");
-            document.getElementById('err').style.color="red";
-            document.getElementById('err').innerHTML='This email address already exists! Proceed to Login';
-          }
-      }
-    };
-    xhttp.open("POST", "views/admin/api/checkemail.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("email="+email);
+    $.ajax({
+     url:"<?php echo base_url(); ?>users/api/checkmail",
+     method:"POST",
+     dataType:'json',
+     cache : false,
+     data:{email:email},
+     success:function(data)
+     {
+       console.log(data);
+       toastr.error("This email address already exists! Proceed to Login");
+       document.getElementById('err').style.color="red";
+       document.getElementById('err').innerHTML='This email address already exists! Proceed to Login';
+     }
+    });
   }
   </script>

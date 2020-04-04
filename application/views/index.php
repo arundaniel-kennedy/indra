@@ -61,7 +61,7 @@
       </div>
       <div class="row">
         <?php
-        if(isset($events)){
+        if(!empty($events)){
           foreach($events as $row){
         ?>
         <div class="col-md-4 col-sm-12 col-lg-4 portfolio-item" data-aos="fade-up-left" data-aos-duration="1000">
@@ -81,7 +81,7 @@
       <?php
           }
         }else{
-        echo "no events yet";
+        echo "<span class='h3 text-center'>No Events Here Yet!</span>";
       } ?>
       </div>
       <div class="d-flex justify-content-end" data-aos="fade-up" data-aos-duration="1000">
@@ -105,7 +105,7 @@
           <ul class="timeline">
             <?php
               $count = 0;
-              if(isset($news)){
+              if(!empty($news)){
                 foreach($news as $row) :
                   if($count%2==0){
             ?>

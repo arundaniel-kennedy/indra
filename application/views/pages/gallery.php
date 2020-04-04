@@ -1,7 +1,11 @@
 
 <section class="page-section mt-5" id="view">
   <div class="container">
-    <h2 class="mb-5">Gallery</h2>
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-heading text-uppercase">Gallery</h2>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
 
@@ -11,7 +15,7 @@
           <div class="row accordion" id="accordionExample">
             <?php
             $i=0;
-            if(isset($gallery)){
+            if(!empty($gallery)){
               foreach($gallery as $row){
             ?>
 
@@ -30,7 +34,7 @@
                 $i++;
                 }
               }else{
-                echo "No Records";
+                echo "<span class='h3 text-center'>No Images Here Yet!</span>";
               }
             ?>
           </div>

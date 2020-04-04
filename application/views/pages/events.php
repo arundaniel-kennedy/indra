@@ -11,7 +11,7 @@
               <div class="row">
                 <?php
 
-                if(isset($events)){
+                if(!empty($events)){
                   foreach($events as $row){
                 ?>
                 <div class="col-md-4 col-sm-12 col-lg-4 portfolio-item">
@@ -31,7 +31,7 @@
               <?php
                   }
                 }else{
-                echo "no events yet";
+                echo "<span class='h3 text-center'>No Events Here Yet!</span>";
                 } ?>
               </div>
 

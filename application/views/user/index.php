@@ -18,18 +18,11 @@ if(!isset($this->session->userdata['logged_in'])){
     </center>
 
     <div style="margin-left:35%;margin-right:35%">
-      <div class="row">
-        <div class="col-lg-6 col-sm-12 text-center">
-          <a href="<?php echo base_url(); ?>user/generate" style="font-size:1.5em" class="btn btn-success">
-            Generate ID
-          </a>
-        </div>
-        <div class="col-lg-6 col-sm-12 text-center">
+        <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" style="font-size:1.5em">
             Donate
           </button>
         </div>
-      </div>
     </div>
 
   </div>
@@ -44,18 +37,11 @@ if(!isset($this->session->userdata['logged_in'])){
     </center>
 
     <div style="margin-left:25%;margin-right:25%">
-      <div class="row">
-        <div class="col-lg-6 col-sm-12 text-center mb-3">
-          <a href="<?php echo base_url(); ?>user/generate" style="font-size:1.5em" class="btn btn-success">
-            Generate ID
-          </a>
-        </div>
-        <div class="col-lg-6 col-sm-12 text-center">
+        <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" style="font-size:1.5em">
             Donate
           </button>
         </div>
-      </div>
     </div>
 
   </div>

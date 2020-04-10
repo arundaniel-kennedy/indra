@@ -1,6 +1,6 @@
 
 <section class="page-section mt-5" id="view">
-  <div class="container">
+  <div class="container" data-aos="fade-in" data-aos-duration="1000">
     <div class="row">
       <div class="col-lg-12 text-center mb-5">
         <h2 class="section-heading text-uppercase">Gallery</h2>
@@ -19,12 +19,12 @@
               foreach($gallery as $row){
             ?>
 
-            <figure class="col-lg-4 col-sm-12 col-md-6">
+            <figure class="col-lg-4 col-sm-12 col-md-6" data-aos="fade-in" data-aos-duration="1300">
               <a onclick="sho(<?php echo $row['slno'] ?>,<?php echo $i ?>)" style="cursor:pointer">
                 <img alt="<?php echo $row['topimg']?>" src="<?php echo base_url(); ?>assets<?php echo $row['topimg']?>" class="w-100">
               </a>
             </figure>
-            <div class="collapse bg-gray mb-5 container-fluid" id="collapse<?php echo $i?>" data-parent="#accordionExample">
+            <div class="collapse bg-gray mb-5 container-fluid" id="collapse<?php echo $i?>" data-parent="#accordionExample" data-aos="fade-in" data-aos-duration="1000">
               <div class="row" id="img<?php echo $i ?>">
 
               </div>
@@ -97,7 +97,7 @@ function sho(slno,i) {
        var img = data.split(",");
        var div = "";
        for (var j = 0; j < img.length; j++) {
-         document.getElementById('img'+i).innerHTML +="<div class=\"col-lg-3 col-sm-12 col-md-6 p-4\"><a style=\"cursor:pointer\" data-toggle=\"modal\" href=\"#modal\" onclick=\"show('<?php echo base_url(); ?>assets"+img[j]+"');\"><img src=\"<?php echo base_url(); ?>assets"+img[j]+"\" class=\"img-fluid\"></a></div>"
+         document.getElementById('img'+i).innerHTML +="<div class=\"col-lg-3 col-sm-12 col-md-6 p-4\"><a style=\"cursor:pointer\" data-toggle=\"modal\" href=\"#modal\" onclick=\"show('<?php echo base_url(); ?>assets"+img[j]+"');\"><img src=\"<?php echo base_url(); ?>assets"+img[j]+"\" class=\"img-fluid\" ></a></div>"
        }
        $("#collapse"+i).collapse('show');
      }

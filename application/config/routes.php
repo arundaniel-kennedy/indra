@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+$route['contact_mail'] = 'views/contact_mail'; 
 
 $route['logout'] = 'users/logout';
 $route['home'] = 'users/view';
@@ -9,6 +9,8 @@ $route['log-in'] = 'users/login';
 $route['register'] = 'views/register';
 $route['register-user'] = 'users/register';
 $route['generate'] = 'users/generate';
+$route['reset'] = 'users/reset';
+$route['update'] = 'users/update';
 
 $route['homer'] = 'admin/index';
 
@@ -26,6 +28,9 @@ $route['view_gallery'] = 'admin/view_gallery';
 $route['view_gallery/(:any)'] = 'admin/view_gallery/$1';
 $route['new_gallery/(:any)'] = 'admin/new_gallery/$1';
 $route['alter_gallery/(:any)'] = 'admin/alter_gallery/$1';
+
+$route['view_users'] = 'admin/view_users';
+$route['view_users/(:any)'] = 'admin/view_users/$1';
 
 $route['events']  = 'views/events';
 $route['events/(:any)']  = 'views/events/$1';

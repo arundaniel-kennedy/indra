@@ -4,13 +4,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Users extends CI_Controller {
   public function view()
   {
-    if(!$this->session->userdata['logged_in']['admin']){
+    if(isset($this->session->userdata['logged_in'])){
+        $this->load->view('includes/head');
+        $this->load->view('includes/nav');
+        $this->load->view('user/index');
+        $this->load->view('includes/foot');
+    }else{
+      redirect('login');
+    }
+  }
+
+  public function reset()
+  {
+    $email = $this->input->get('email');
+    $token = $this->input->get('token');
+
+    $result = $this->user_model->check_token($email,$token);
+    if($result){
+      $data = $this->user_model->get_user_id($email);
+      var_dump($data);
       $this->load->view('includes/head');
       $this->load->view('includes/nav');
-      $this->load->view('user/index');
+      $this->load->view('pages/reset',$data);
       $this->load->view('includes/foot');
     }else{
-      redirect('homer');
+      show_404();
+    }
+  }
+
+  public function update()
+  {
+    $id = $this->input->post('id');
+
+    $data = array(
+      'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
+    );
+
+    $result = $this->user_model->update_user($data,$id);
+    if($result){
+      redirect('login');
+    }else{
+      show_404();
     }
   }
 
@@ -22,40 +56,27 @@ class Users extends CI_Controller {
       $token = bin2hex(random_bytes(50));
 
       $data = array(
-        'token' => $token
+        'token' => $token,
       );
 
-      //$result = $this->users_model->update_user_token($data);
+      $id = $this->user_model->get_user_id($email);
+      $result = $this->user_model->update_user($data,$id['id']);
+
       $url = base_url()."reset?token=".$token."&email=".$email."";
-      echo $url."<br />";
-
-      $config = Array(
-          'protocol' => 'smtp',
-          'smtp_host' => 'a2plcpnl0311.prod.iad2.secureserver.net',
-          'smtp_port' => 465,
-          'smtp_user' => 'info@indratrust.in',
-          'smtp_pass' => 'mav*CI@j+URv',
-          'mailtype'  => 'html',
-          'charset'   => 'iso-8859-1'
-      );
+      header('Content-Type: application/json');
 
       $this->email->initialize($config);
       $this->email->set_newline("\r\n");
 
-      print_r($config);
-
       $this->email->from('info@indratrust.in', 'IndraTrust');
       $this->email->to($email);
       $this->email->subject('Reset Password');
-      $msg = 'Use the Following link to reset your password: '.$url;
-      $this->email->message($msg);
-      $this->email->send();
-      echo $this->email->print_debugger();
-      /*if($this->email->send()){
-        echo $this->email->print_debugger();
+      $this->email->message('Use the Following link to reset your password: '.$url);
+      if($this->email->send()){
+        echo json_encode("success");
       }else{
         echo $this->email->print_debugger();
-      }*/
+      }
     }else{
       echo json_encode("error_code_1");
     }
@@ -122,11 +143,11 @@ class Users extends CI_Controller {
       'state_code' => $this->input->post('state_code'),
       'mobile' => $this->input->post('mobile'),
       'email' => $this->input->post('useremail'),
-      'password' => $this->input->post('password'),
+      'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
       'profileimg' => $filename
     );
 
-    $result = $this->events_model->create_event($data);
+    $result = $this->user_model->create_user($data);
     if($result){
       $_SESSION['success'] = "Registered Successfully";
       redirect('login');
@@ -146,6 +167,7 @@ class Users extends CI_Controller {
 
         $email = $this->input->post('useremail');
         $result = $this->user_model->user_info($email);
+        $admin = $result[0]['admin'];
         if ($result != false) {
           $session_data = array(
             'id'    => $result[0]['id'],
@@ -153,7 +175,12 @@ class Users extends CI_Controller {
             'admin' => $result[0]['admin']
           );
           $this->session->set_userdata('logged_in', $session_data);
-          redirect('users/view');
+          if($admin){
+            redirect('homer');
+          }else{
+            redirect('home');
+          }
+
         }
 
       } else {
@@ -187,6 +214,6 @@ class Users extends CI_Controller {
     if(isset($this->session->userdata['logged_in'])){
       $this->session->unset_userdata('logged_in');
     }
-    redirect('views/index');
+    redirect('index');
   }
 }

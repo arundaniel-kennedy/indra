@@ -1,5 +1,5 @@
 
-  <section class="page-section mt-5" id="team">
+  <section class="page-section mt-5" id="team" data-aos="fade-in" data-aos-duration="1000">
     <div class="container">
       <h2 class="mb-5">Green Wing</h2>
 

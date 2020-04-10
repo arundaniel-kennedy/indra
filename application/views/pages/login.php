@@ -16,7 +16,7 @@
         <input type="password" name="password" class="form-control" value="" required placeholder="Enter Password" autocomplete="current-password">
       </div>
       <center>
-        <input type="submit" class="btn btn-dark" value="submit">
+        <input type="submit" class="btn btn-dark" value="Submit">
       </center>
     </form>
 <br>

@@ -1,14 +1,4 @@
-
-<?php
-if(!isset($this->session->userdata['logged_in'])){
-  if($this->session->userdata['logged_in']['admin']){
-    header("refresh:0.0001 ; url=".base_url()."homer");
-  }
-  header("refresh:0.0001 ; url=".base_url()."login");
-}
-
-?>
-  <div class="d-none d-lg-block ">
+  <div class="d-none d-lg-block " data-aos="fade-in" data-aos-duration="1000">
 
     <center>
       <div style="margin-left:20%;margin-right:20%;margin-top:5%">
@@ -21,13 +11,15 @@ if(!isset($this->session->userdata['logged_in'])){
         <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" style="font-size:1.5em">
             Donate
+            <hr>
+            <p class="h2">What </p>
           </button>
         </div>
     </div>
 
   </div>
 
-  <div class="d-sm-block d-lg-none">
+  <div class="d-sm-block d-lg-none" data-aos="fade-in" data-aos-duration="1000">
 
     <center>
       <div style="margin-left:10%;margin-right:10%" class="mt-5 pt-5">
@@ -51,7 +43,7 @@ if(!isset($this->session->userdata['logged_in'])){
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalScrollableTitle">Donation information</h5>
@@ -60,11 +52,9 @@ if(!isset($this->session->userdata['logged_in'])){
           </button>
         </div>
         <div class="modal-body">
-          You can give your donations to the following account number: <br>
-          &nbsp; &nbsp;  xxxxx xxxxx xxxxx
-          <br><br>
-          You can also send through UPI id <br>
-          &nbsp; &nbsp; xxxxx@xxxxx.xxx
+          <p class="text-center h2">Donation</p>
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

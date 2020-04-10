@@ -7,6 +7,7 @@
 body {
   overflow-x: hidden;
   font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  height: 100%;
 }
 
 p {
@@ -328,8 +329,8 @@ header.masthead {
 }
 
 header.masthead .intro-text {
-  padding-top: 150px;
-  padding-bottom: 100px;
+  padding-top: 12vh;
+  padding-bottom: 10px;
 }
 
 header.masthead .intro-text .intro-lead-in {
@@ -350,8 +351,8 @@ header.masthead .intro-text .intro-heading {
 
 @media (min-width: 768px) {
   header.masthead .intro-text {
-    padding-top: 30px;
-    padding-bottom: 20px;
+    padding-top: 300px;
+    padding-bottom: 200px;
   }
   header.masthead .intro-text .intro-lead-in {
     font-size: 40px;

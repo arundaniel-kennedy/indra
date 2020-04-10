@@ -1,10 +1,8 @@
-<div class="container">
-  <div class="jumbotron toppush3">
-    <a href="<?php echo base_url(); ?>homer" class="btn btn-outline-dark">Back to home</a>
-    <br><br>
+<div class="col-sm-12 col-lg-9">
+  <div class="jumbotron box2" style="background-color:white">
     <div class="row">
       <h3 class="col-lg-2 col-sm-12">Gallery</h3>
-      <div class="col-lg-3 col-sm-12 mb-2">
+      <div class="col-lg-4 col-sm-12 mb-2">
         <a href="<?php echo base_url(); ?>new_gallery/add" class="ml-2 btn btn-success">Add Images</a>
       </div>
     </div>
@@ -28,7 +26,7 @@
           ?>
           <tr>
             <th scope="row">
-              <img src="<?php echo base_url(); ?>assets<?php echo $row['topimg'] ?>" height="100" width="100">
+              <img src="<?php echo base_url(); ?>assets<?php echo $row['topimg'] ?>" height="50" width="50">
             </th>
             <td>
               <?php
@@ -36,7 +34,7 @@
 
                 foreach($images as $image ) {
               ?>
-                <img src="<?php echo base_url(); ?>assets<?php echo $image ?>" height="100" width="100">
+                <img src="<?php echo base_url(); ?>assets<?php echo $image ?>" height="50" width="50">
               <?php
                 }
               ?>
@@ -89,4 +87,6 @@
       </ul>
     </nav>
   </div>
+</div>
+</div>
 </div>

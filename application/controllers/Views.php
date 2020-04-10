@@ -17,6 +17,28 @@ class Views extends CI_Controller {
       $this->load->view('includes/foot');
   }
 
+  public function contact_mail(){
+      $name = $this->input->post("name");
+      $phone = $this->input->post("phone");
+      $email = $this->input->post("email");
+      $message = $this->input->post("message");
+
+      $msg = $name."\n".$phone."\n".$email."\n".$message;
+
+      $this->email->set_newline("\r\n");
+
+      $this->email->from('info@indratrust.in', 'IndraTrust');
+      $this->email->to('info@indratrust.in');
+      $this->email->subject("Acknowlegement");
+      $this->email->message($msg);
+      if($this->email->send()){
+        header('Content-Type: application/json');
+        echo json_encode("success");
+      }else{
+        echo $this->email->print_debugger();
+      }
+  }
+
   public function register()
   {
     $data['states'] = $this->register_model->get_states();

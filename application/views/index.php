@@ -4,7 +4,7 @@
     <div class="container">
       <div class="d-none d-md-block">
         <div class="row">
-          <div class="col-lg-6 col-sm-12 h-100" style="margin-top:23vh;">
+          <div class="col-lg-6 col-sm-12 h-100" style="margin-top:25vh;">
               <div class="d-flex align-items-end" data-aos="fade-out" data-aos-duration="2000">
                 <img src="<?php echo base_url(); ?>assets/img/apj1.jpeg" class="w-100" alt="">
               </div>
@@ -254,26 +254,27 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <form id="contactForm" name="sentMessage" novalidate="novalidate">
+          <form id="contactForm" class="needs-validation" novalidate>
             <div class="row">
               <div class="col-md-6">
+                <input type="hidden" id="url" value="<?php echo base_url();?>contact_mail">
                 <div class="form-group">
-                  <input class="form-control" id="name" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name.">
-                  <p class="help-block text-danger"></p>
+                  <input class="form-control" id="name" type="text" placeholder="Your Name *" required pattern="[A-Za-z ]*">
+                  <p class="invalid-feedback">Please Enter a Name</p>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" id="email" type="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address.">
-                  <p class="help-block text-danger"></p>
+                  <input class="form-control" id="email" type="email" placeholder="Your Email *" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                  <p class="invalid-feedback">Please Enter a valid email</p>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required="required" data-validation-required-message="Please enter your phone number.">
-                  <p class="help-block text-danger"></p>
+                  <input class="form-control" id="phone" type="text" pattern="[5-9]{1}[0-9]{9}" placeholder="Your Phone *" required>
+                  <p class="invalid-feedback">A Valid phone Number please</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <textarea class="form-control" id="message" placeholder="Your Message *" required="required" data-validation-required-message="Please enter a message."></textarea>
-                  <p class="help-block text-danger"></p>
+                  <textarea class="form-control" id="message" placeholder="Your Message *" required></textarea>
+                  <p class="invalid-feedback">A Message is required</p>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -355,7 +356,7 @@
 
   function rep(){
     setTimeout(function(){
-        $('#firstpaint').replaceWith("<img src='<?php echo base_url(); ?>assets/img/bg.jpeg' style='margin-top:12vh;' width='100%' class='d-none d-md-block' height='650vh' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg1.jpeg' class='d-block d-md-none' style='margin-top:6vh;' width='100%' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg2.jpeg' class='d-block d-md-none' style='' width='100%' data-aos='fade-in' data-aos-duration='1000'/>");
+        $('#firstpaint').replaceWith("<img src='<?php echo base_url(); ?>assets/img/bg.jpeg' style='margin-top:10vh;' width='100%' class='d-none d-md-block' height='660vh' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg1.jpeg' class='d-block d-md-none' style='margin-top:6vh;' width='100%' data-aos='fade-in' data-aos-duration='1000'/><img src='<?php echo base_url(); ?>assets/img/bg2.jpeg' class='d-block d-md-none' style='' width='100%' data-aos='fade-in' data-aos-duration='1000'/>");
       }, 5000);
   }
 
@@ -398,5 +399,62 @@
          $('#location1').html(data.location);
        }
       });
+    }
+    function mail_me() {
+
+      event.preventDefault();
+      var uri = $("input#url").val();
+      var name = $("input#name").val();
+      var email = $("input#email").val();
+      var phone = $("input#phone").val();
+      var message = $("textarea#message").val();
+
+      var firstName = name; // For Success/Failure Message
+      // Check for white space in name for Success/Fail message
+      if (firstName.indexOf(' ') >= 0) {
+        firstName = name.split(' ').slice(0, -1).join(' ');
+      }
+      $this = $("#sendMessageButton");
+      $this.prop("disabled", true);
+
+      // $.ajax({
+      //   url: uri,
+      //   type: "POST",
+      //   data: {
+      //     name: name,
+      //     phone: phone,
+      //     email: email,
+      //     message: message
+      //   },
+      //   cache: false,
+      //   success: function(data) {
+      //     console.log(data);
+      //     // Success message
+      //     if(data=="success"){
+      //       $('#success').html("<div class='alert alert-success'>");
+      //       $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+      //         .append("</button>");
+      //       $('#success > .alert-success')
+      //         .append("<strong>Your message has been sent. </strong>");
+      //       $('#success > .alert-success')
+      //         .append('</div>');
+      //       //clear all fields
+      //       $('#contactForm').trigger("reset");
+      //     }else{
+      //       $('#success').html("<div class='alert alert-danger'>");
+      //       $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+      //         .append("</button>");
+      //       $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
+      //       $('#success > .alert-danger').append('</div>');
+      //       //clear all fields
+      //       $('#contactForm').trigger("reset");
+      //     }
+      //   },
+      //   complete: function() {
+      //     setTimeout(function() {
+      //       $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
+      //     }, 1000);
+      //   }
+      // });
     }
   </script>

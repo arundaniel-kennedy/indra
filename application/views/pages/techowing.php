@@ -1,6 +1,6 @@
 
   <section class="page-section mt-5" id="team">
-  <div class="container">
+  <div class="container" data-aos="fade-in" data-aos-duration="1000">
   <h2 class="mb-5">Techo Wing</h2>
     As the present day generation has entered into a global village, there has been immense breakthrough in science and technology. But yet in this technocrat generation, there has been a great divide; a divide that has scaled one into space exploration, a 5D generation and has left the other devoid of basic amenities.<br /><br />
 

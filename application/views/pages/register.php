@@ -1,7 +1,7 @@
 
 <section class="page-section mt-5" id="login">
-  <div class="container py-5" data-aos="zoom-out-up" data-aos-duration="1000">
-    <div class="jumbotron box2 pt-4 boxer">
+  <div class="container py-5">
+    <div class="jumbotron box2 pt-4 boxer" data-aos="zoom-out-up" data-aos-duration="1000">
 
       <h2 class="section-heading text-center">Register</h2>
       <sup style="color:red">* All Fields are Required</sup>
@@ -12,22 +12,18 @@
         <input type="hidden" name="MAX_FILE_SIZE" value="9000000" />
 
         <h4>A Little About You!</h4><br>
-        <div class="row">
-          <div class="col-sm-12 col-md-12 col-lg-6">
-            <div class="form-group">
+        <div class="form-row">
+            <div class="form-group col-sm-12 col-md-12 col-lg-6">
               <label>First Name<sup style="color:red">*</sup>:</label>
               <input type="text" name="name" class="form-control" placeholder="Given Name"   pattern="[a-zA-Z]*" required autocomplete="given-name">
             </div>
-          </div>
-          <div class="col-sm-12 col-md-12 col-lg-6">
-            <div class="form-group">
+            <div class="form-group col-sm-12 col-md-12 col-lg-6">
               <label>Last Name<sup style="color:red">*</sup>:</label>
               <input type="text" name="ln" class="form-control" placeholder="Family Name or Initials"   pattern="[a-zA-Z]*" required autocomplete="given-name">
             </div>
-          </div>
         </div>
 
-        <div class="row">
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Blood Group<sup style="color:red">*</sup>:</label>
@@ -52,7 +48,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Education<sup style="color:red">*</sup>:</label>
@@ -66,7 +62,7 @@
         <br><br>
 
         <h4>Where Can You Serve?</h4><br>
-        <div class="row">
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Choose Wings<sup style="color:red">*</sup>:</label><br>
@@ -100,11 +96,11 @@
             <div class="form-group">
               <label>Address<sup style="color:red">*</sup>:</label>
               <input type="text" name="address" class="form-control" placeholder="Door no, Street Name, Area" required>
-              <div class="row mt-2">
+              <div class="form-row mt-2">
                 <div class="col-6">
                   <div class="form-group">
                     <label>State:</label>
-                    <select class="custom-select" name="state" required onchange="getcities();">
+                    <select class="custom-select" name="state_code" required onchange="getcities();">
                       <option value="">Your state</option>
                       <?php
 
@@ -135,11 +131,11 @@
         <br><br>
 
         <h4>Your Contact Information!</h4><br>
-        <div class="row">
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Mobile Number<sup style="color:red">*</sup>:</label>
-              <input type="text" name="mnumber" class="form-control" placeholder="Enter Phone Number" required pattern="[5-9]{1}[0-9]{9}" autocomplete="mobile">
+              <input type="text" name="mobile" class="form-control" placeholder="Enter Phone Number" required pattern="[5-9]{1}[0-9]{9}" autocomplete="mobile">
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-6">
@@ -151,7 +147,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label>Set Password<sup style="color:red">*</sup>:</label>
@@ -166,16 +162,22 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <small class="form-text text-muted mb-3">
+           Password must be atleast 8 characters long with Uppercase, Lowercase and Number or Special characters.
+         </small>
+        <div class="form-row">
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
               <label for="img">Upload Profile Image<sup style="color:red">*</sup>:</label><br>
               <input type="file" class="form-control-file" name="img" required>
             </div>
           </div>
+          <div class="col-sm-12 col-md-12 col-lg-6">
+
+          </div>
         </div>
         <center>
-          <input type="submit" class="btn btn-dark" value="submit">
+          <input type="submit" class="btn btn-dark" value="Submit">
         </center>
       </form>
   <br>
@@ -235,15 +237,17 @@
      success:function(data)
      {
        console.log(data);
-       toastr.error("This email address already exists! Proceed to Login");
-       document.getElementById('err').style.color="red";
-       document.getElementById('err').innerHTML='This email address already exists! Proceed to Login';
+       if(data){
+         toastr.error("This email address already exists! Proceed to Login");
+         document.getElementById('err').style.color="red";
+         document.getElementById('err').innerHTML='This email address already exists! Proceed to Login';
+       }
      }
     });
   }
 
   function getcities() {
-    var state = document.getElementsByName('state')[0].value;
+    var state = document.getElementsByName('state_code')[0].value;
 
     $.ajax({
      url:"<?php echo base_url(); ?>views/api/getcities",

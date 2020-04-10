@@ -1,6 +1,6 @@
 
-  <section class="page-section mt-5" id="about">
-    <div class="container">
+  <section class="page-section mt-5" id="about" >
+    <div class="container" data-aos="fade-in" data-aos-duration="1000">
       <h2 class="mb-5">About Us</h2>
 
         <p>INDRA (INDIAN NATIONAL DEVELOPMENT REFOMATION ASSOCIATION) TRUST, with the motto "Service before self" is Non-Governmental Organisation that works to render the dream of our former President honourable Dr. A.P.J. ABDUL KALAM, INDIA 2020 A Vision of The New Millennium.

@@ -1,6 +1,6 @@
 
   <section class="page-section mt-5" id="team">
-    <div class="container">
+    <div class="container" data-aos="fade-in" data-aos-duration="1000">
       <h2 class="mb-5">Service Wing</h2>
       <p>Service Wing includes every service that can be a helping hand to humanity and support them to move forward in all walks of life. The service wing brings the positive people together to enhance the lives of people in need.<br /><br />
 

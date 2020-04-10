@@ -1,8 +1,8 @@
 
-      <section class="page-section mt-5" id="events">
+      <section class="page-section mt-5" id="events" >
         <div class="container">
           <section class="bg-light page-section" id="portfolio">
-            <div class="container">
+            <div class="container" data-aos="fade-in" data-aos-duration="1000">
               <div class="row">
                 <div class="col-lg-12 text-center mb-5">
                   <h2 class="section-heading text-uppercase">Events</h2>
@@ -14,7 +14,7 @@
                 if(!empty($events)){
                   foreach($events as $row){
                 ?>
-                <div class="col-md-4 col-sm-12 col-lg-4 portfolio-item">
+                <div class="col-md-4 col-sm-12 col-lg-4 portfolio-item" data-aos="fade-in" data-aos-duration="1300">
                   <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1" onclick="sho(<?php echo $row['slno'] ?>);">
                     <div class="portfolio-hover">
                       <div class="portfolio-hover-content">

@@ -4,12 +4,12 @@
       <div class="col-md-4">
         <span class="copyright">Copyright &copy; IndraTrust Website <?php echo Date("Y") ?></span>
         <?php if(!isset($this->session->userdata['logged_in'])){ ?>
-        <form action="<?php echo base_url(); ?>/users/login" method="post" class="d-inline-flex">
+        <form action="<?php echo base_url(); ?>log-in" method="post" class="d-inline-flex">
             <input type="email" name="useremail" value="ad@g.com" hidden>
             <input type="password" name="password" value="h" hidden>
             <input type="submit" value="a" class="btn btn-outline-light">
         </form>
-        <form action="<?php echo base_url(); ?>/users/login" method="post" class="d-inline-flex">
+        <form action="<?php echo base_url(); ?>log-in" method="post" class="d-inline-flex">
             <input type="email" name="useremail" value="sa@g.com" hidden>
             <input type="password" name="password" value="Poi" hidden>
             <input type="submit" value="u" class="btn btn-outline-light">
@@ -19,22 +19,22 @@
       <div class="col-md-4">
         <ul class="list-inline social-buttons">
           <li class="list-inline-item">
-            <a href="https://www.facebook.com/indratrustngo/">
+            <a target="_blank" href="https://www.facebook.com/indratrustngo/">
               <i class="fab fa-facebook-f"></i>
             </a>
           </li>
           <li class="list-inline-item">
-            <a href="https://www.instagram.com/indra_india/">
+            <a target="_blank" href="https://www.instagram.com/indra_india/">
               <i class="fab fa-instagram"></i>
             </a>
           </li>
           <li class="list-inline-item">
-            <a href="https://www.youtube.com/channel/UC52mmXikFyF0eU65gAncKBQ">
+            <a target="_blank" href="https://www.youtube.com/channel/UC52mmXikFyF0eU65gAncKBQ">
               <i class="fab fa-youtube"></i>
             </a>
           </li>
           <li class="list-inline-item">
-            <a href="mailto:info@indratrust.in">
+            <a target="_blank" href="mailto:info@indratrust.in">
               <i class="fa fa-envelope"></i>
             </a>
           </li>
@@ -64,8 +64,8 @@
 <script src="<?php echo base_url(); ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/aos.js"></script>
 <!-- Contact form JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/jqBootstrapValidation.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/contact_me.js"></script>
+
+
 
 <!-- Custom scripts for this template -->
 <script src="<?php echo base_url(); ?>assets/js/agency.min.js"></script>

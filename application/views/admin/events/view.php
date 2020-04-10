@@ -1,10 +1,8 @@
-<div class="container">
-  <div class="jumbotron toppush3">
-    <a href="<?php echo base_url(); ?>homer" class="btn btn-outline-dark">Back to home</a>
-    <br><br>
+    <div class="col-sm-12 col-lg-9">
+    <div class="jumbotron box2" style="background-color:white">
     <div class="row">
-      <h3 class="col-lg-4 col-sm-12">Events & Activities</h3>
-      <div class="col-lg-2 col-sm-12 mb-2">
+      <h3 class="col-lg-5 col-sm-12">Events & Activities</h3>
+      <div class="col-lg-4 col-sm-12 mb-2">
         <a href="<?php echo base_url(); ?>new_event/add" class="ml-2 btn btn-success">
           Add Events
         </a>
@@ -89,5 +87,7 @@
           <?php }} ?>
         </ul>
       </nav>
+      </div>
+    </div>
   </div>
 </div>

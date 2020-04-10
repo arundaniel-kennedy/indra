@@ -1,6 +1,6 @@
 
   <section class="page-section mt-5" id="team">
-    <div class="container">
+    <div class="container" data-aos="fade-in" data-aos-duration="1000">
       <h2 class="mb-5">Social Wing</h2>
 
 

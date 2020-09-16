@@ -7,7 +7,7 @@ class User_model extends CI_Model{
 
   public function check_user($data)
   {
-    $condition = "email =" . "'" . $data['email'] ."'";
+    $condition = "email ='". $data['email'] ."'";
     $this->db->select('password');
     $this->db->from('users');
     $this->db->where($condition);
